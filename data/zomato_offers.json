@@ -1,0 +1,21 @@
+
+[
+  {
+    "id": "zo_offer_001",
+    "code": "MOCKZOMATO40",
+    "description": "Sample offer: 40 rupees off",
+    "discount_type": "flat",
+    "discount_value": 40,
+    "minimum_order_value": 249,
+    "platform": "zomato"
+  },
+  {
+    "id": "zo_offer_002",
+    "code": "MOCKZOMATO15",
+    "description": "Sample offer: 15 percent off",
+    "discount_type": "percentage",
+    "discount_value": 15,
+    "minimum_order_value": 299,
+    "platform": "zomato"
+  }
+]

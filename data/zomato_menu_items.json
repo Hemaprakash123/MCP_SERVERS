@@ -1,0 +1,75 @@
+
+[
+  {
+    "id": "sw_item_001",
+    "restaurant_id": "sw_rest_001",
+    "name": "Chicken Dum Biryani",
+    "category": "Biryani",
+    "price": 229,
+    "is_vegetarian": false,
+    "description": "Hyderabadi-style chicken dum biryani"
+  },
+  {
+    "id": "sw_item_002",
+    "restaurant_id": "sw_rest_001",
+    "name": "Veg Dum Biryani",
+    "category": "Biryani",
+    "price": 189,
+    "is_vegetarian": true,
+    "description": "Vegetable dum biryani"
+  },
+  {
+    "id": "sw_item_003",
+    "restaurant_id": "sw_rest_002",
+    "name": "Masala Dosa",
+    "category": "Dosa",
+    "price": 109,
+    "is_vegetarian": true,
+    "description": "Crispy dosa with potato masala"
+  },
+  {
+    "id": "sw_item_004",
+    "restaurant_id": "sw_rest_002",
+    "name": "Idli Vada Combo",
+    "category": "Breakfast",
+    "price": 79,
+    "is_vegetarian": true,
+    "description": "Idli and vada served with chutney"
+  },
+  {
+    "id": "sw_item_005",
+    "restaurant_id": "sw_rest_003",
+    "name": "Margherita Pizza",
+    "category": "Pizza",
+    "price": 219,
+    "is_vegetarian": true,
+    "description": "Classic tomato and mozzarella pizza"
+  },
+  {
+    "id": "sw_item_006",
+    "restaurant_id": "sw_rest_003",
+    "name": "Farmhouse Pizza",
+    "category": "Pizza",
+    "price": 279,
+    "is_vegetarian": true,
+    "description": "Pizza topped with vegetables"
+  },
+  {
+    "id": "sw_item_007",
+    "restaurant_id": "sw_rest_004",
+    "name": "Paneer Protein Bowl",
+    "category": "Healthy Bowl",
+    "price": 249,
+    "is_vegetarian": true,
+    "description": "Paneer and vegetables in a balanced bowl"
+  },
+  {
+    "id": "sw_item_008",
+    "restaurant_id": "sw_rest_004",
+    "name": "Grilled Chicken Bowl",
+    "category": "Healthy Bowl",
+    "price": 259,
+    "is_vegetarian": false,
+    "description": "Grilled chicken with vegetables"
+  }
+]

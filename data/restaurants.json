@@ -1,0 +1,43 @@
+
+[
+  {
+    "id": "sw_rest_001",
+    "name": "Hyderabad Biryani House",
+    "cuisine": ["Hyderabadi", "Biryani", "Indian"],
+    "area": "Madhapur",
+    "rating": 4.3,
+    "delivery_time_minutes": 30,
+    "price_for_two": 400,
+    "vegetarian_options": true
+  },
+  {
+    "id": "sw_rest_002",
+    "name": "Dosa Junction",
+    "cuisine": ["South Indian", "Vegetarian"],
+    "area": "Kondapur",
+    "rating": 4.2,
+    "delivery_time_minutes": 25,
+    "price_for_two": 250,
+    "vegetarian_options": true
+  },
+  {
+    "id": "sw_rest_003",
+    "name": "Pizza Corner",
+    "cuisine": ["Italian", "Pizza"],
+    "area": "Gachibowli",
+    "rating": 4.1,
+    "delivery_time_minutes": 35,
+    "price_for_two": 500,
+    "vegetarian_options": true
+  },
+  {
+    "id": "sw_rest_004",
+    "name": "Green Bowl Kitchen",
+    "cuisine": ["Healthy", "Salads", "Vegetarian"],
+    "area": "Hitech City",
+    "rating": 4.4,
+    "delivery_time_minutes": 25,
+    "price_for_two": 350,
+    "vegetarian_options": true
+  }
+]

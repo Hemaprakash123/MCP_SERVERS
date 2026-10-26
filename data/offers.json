@@ -1,0 +1,21 @@
+
+[
+  {
+    "id": "sw_offer_001",
+    "code": "MOCKSWIGGY50",
+    "description": "Sample offer: 50 rupees off",
+    "discount_type": "flat",
+    "discount_value": 50,
+    "minimum_order_value": 299,
+    "platform": "swiggy"
+  },
+  {
+    "id": "sw_offer_002",
+    "code": "MOCKSWIGGY10",
+    "description": "Sample offer: 10 percent off",
+    "discount_type": "percentage",
+    "discount_value": 10,
+    "minimum_order_value": 199,
+    "platform": "swiggy"
+  }
+]
