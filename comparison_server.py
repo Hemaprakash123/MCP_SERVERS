@@ -13,7 +13,7 @@ from mcp.server.transport_security import TransportSecuritySettings
 logger = logging.getLogger("comparison")
 logging.basicConfig(level=logging.INFO)
 
-# Render: set SWIGGY_MCP_URL / ZOMATO_MCP_URL (…/mcp). Local defaults for dev.
+# Upstream MCP servers (override with env vars on Render if the URLs change).
 SWIGGY_URL = os.getenv("SWIGGY_MCP_URL", "https://food-swiggy-mcp.onrender.com/mcp")
 ZOMATO_URL = os.getenv("ZOMATO_MCP_URL", "https://food-zomato-mcp.onrender.com/mcp")
 
@@ -21,23 +21,25 @@ ZOMATO_URL = os.getenv("ZOMATO_MCP_URL", "https://food-zomato-mcp.onrender.com/m
 UPSTREAM_TIMEOUT_SECONDS = float(os.getenv("UPSTREAM_TIMEOUT_SECONDS", "60"))
 UPSTREAM_ATTEMPTS = 2
 
+# Render sets PORT automatically and needs the server bound to 0.0.0.0.
 HOST = os.getenv("HOST", "0.0.0.0")
 PORT = int(os.getenv("PORT", "8003"))
 
-# Host validation. On Render RENDER_EXTERNAL_HOSTNAME is set automatically.
-_render_host = os.getenv("RENDER_EXTERNAL_HOSTNAME")
-if _render_host:
-    transport_security = TransportSecuritySettings(
-        enable_dns_rebinding_protection=True,
-        allowed_hosts=[_render_host, f"{_render_host}:*",
-                       "127.0.0.1:*", "localhost:*"],
-        allowed_origins=[f"https://{_render_host}",
-                         "http://127.0.0.1:*", "http://localhost:*"],
-    )
-else:
-    transport_security = TransportSecuritySettings(
-        enable_dns_rebinding_protection=False
-    )
+# Host validation: allow this service's public hostname.
+PUBLIC_HOST = os.getenv(
+    "RENDER_EXTERNAL_HOSTNAME", "food-comparison-mcp.onrender.com"
+)
+transport_security = TransportSecuritySettings(
+    enable_dns_rebinding_protection=True,
+    allowed_hosts=[
+        PUBLIC_HOST, f"{PUBLIC_HOST}:*",
+        "127.0.0.1:*", "localhost:*",
+    ],
+    allowed_origins=[
+        f"https://{PUBLIC_HOST}",
+        "http://127.0.0.1:*", "http://localhost:*",
+    ],
+)
 
 mcp = FastMCP(
     "Food Price Comparison",

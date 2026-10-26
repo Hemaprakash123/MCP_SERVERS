@@ -1,4 +1,4 @@
-
+import os
 import json
 from pathlib import Path
 from typing import Any
@@ -10,8 +10,8 @@ DATA_DIR = BASE_DIR / "data"
 
 mcp = FastMCP(
     "Mock Swiggy Food Discovery",
-    host="127.0.0.1",
-    port=8001,
+    host="0.0.0.0",
+    port=int(os.environ.get("PORT", "8001"))
 )
 
 
