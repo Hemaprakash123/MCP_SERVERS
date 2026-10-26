@@ -5,6 +5,7 @@ from typing import Any
 
 from mcp import ClientSession
 from mcp.client.streamable_http import streamablehttp_client
+from mcp.server.transport_security import TransportSecuritySettings
 from mcp.server.fastmcp import FastMCP
 
 SWIGGY_MCP_URL = os.environ.get(
@@ -19,7 +20,18 @@ ZOMATO_MCP_URL = os.environ.get(
 )
 
 
-mcp = FastMCP("Food Price Comparison")
+
+mcp = FastMCP(
+    "Food Price Comparison",
+    transport_security=TransportSecuritySettings(
+        enable_dns_rebinding_protection=True,
+        allowed_hosts=[
+            "food-comparison-mcp.onrender.com",
+            "food-comparison-mcp.onrender.com:*",
+        ],
+    ),
+)
+
 
 async def call_remote_tool(
     server_url: str,
