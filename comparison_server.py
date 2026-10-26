@@ -1,4 +1,4 @@
-
+import os
 import asyncio
 import json
 from typing import Any
@@ -7,15 +7,19 @@ from mcp import ClientSession
 from mcp.client.streamable_http import streamablehttp_client
 from mcp.server.fastmcp import FastMCP
 
-SWIGGY_URL = "http://127.0.0.1:8001/mcp"
-ZOMATO_URL = "http://127.0.0.1:8002/mcp"
-
-mcp = FastMCP(
-    "Food Price Comparison",
-    host="127.0.0.1",
-    port=8003,
+SWIGGY_MCP_URL = os.environ.get(
+    "SWIGGY_MCP_URL",
+    "https://food-swiggy-mcp.onrender.com/mcp",
 )
 
+
+ZOMATO_MCP_URL = os.environ.get(
+    "ZOMATO_MCP_URL",
+    "https://food-zomato-mcp.onrender.com/mcp",
+)
+
+
+mcp = FastMCP("Food Price Comparison")
 
 async def call_remote_tool(
     server_url: str,
@@ -69,12 +73,12 @@ async def search_both_platforms(
 
     swiggy, zomato = await asyncio.gather(
         call_remote_tool(
-            SWIGGY_URL,
+            SWIGGY_MCP_URL,
             "search_menu_items",
             arguments,
         ),
         call_remote_tool(
-            ZOMATO_URL,
+            ZOMATO_MCP_URL,
             "search_menu_items",
             arguments,
         ),
@@ -209,4 +213,11 @@ async def recommend_food_within_budget(
 
 
 if __name__ == "__main__":
-    mcp.run(transport="streamable-http")
+    import uvicorn
+
+    app = mcp.streamable_http_app()
+    uvicorn.run(
+        app,
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", "8003")),
+    )
