@@ -1,0 +1,43 @@
+
+name: Render MCP Keep Alive
+
+on:
+  schedule:
+    - cron: "*/14 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ping-mcp-servers:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+
+    steps:
+      - name: Ping Swiggy MCP
+        run: |
+          echo "Pinging Swiggy MCP..."
+          curl -sS -L \
+            --max-time 60 \
+            -o /dev/null \
+            -w "Swiggy HTTP status: %{http_code}\n" \
+            https://food-swiggy-mcp.onrender.com/mcp || true
+
+      - name: Ping Zomato MCP
+        run: |
+          echo "Pinging Zomato MCP..."
+          curl -sS -L \
+            --max-time 60 \
+            -o /dev/null \
+            -w "Zomato HTTP status: %{http_code}\n" \
+            https://food-zomato-mcp.onrender.com/mcp || true
+
+      - name: Ping Comparison MCP
+        run: |
+          echo "Pinging Comparison MCP..."
+          curl -sS -L \
+            --max-time 60 \
+            -o /dev/null \
+            -w "Comparison HTTP status: %{http_code}\n" \
+            https://food-comparison-mcp.onrender.com/mcp || true
