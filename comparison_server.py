@@ -76,6 +76,28 @@ def matches_tokens(item: dict[str, Any], tokens: list[str]) -> bool:
     return all(t in text for t in tokens)
 
 
+def select_items(items: list[dict[str, Any]], query: str) -> list[dict[str, Any]]:
+    """Pick the items a query refers to.
+
+    A multi-word query that is part of a dish name (for example
+    "Veg Dum Biryani") selects exactly those dishes. Otherwise fall back to
+    keyword matching with filler words removed.
+    """
+    words = re.findall(r"[a-z0-9]+", (query or "").lower())
+    if len(words) >= 2:
+        phrase = " ".join(words)
+        exact = [
+            i for i in items
+            if phrase in " ".join(
+                re.findall(r"[a-z0-9]+", str(i.get("name", "")).lower())
+            )
+        ]
+        if exact:
+            return exact
+    tokens = clean_query(query)
+    return [i for i in items if matches_tokens(i, tokens)]
+
+
 # ---------------------------------------------------------------------------
 # Upstream calls with real error reporting
 # ---------------------------------------------------------------------------
@@ -197,8 +219,7 @@ async def compare_menu_prices(
         return upstream_failure(errors)
 
     def items_of(platform: str) -> list[dict[str, Any]]:
-        return [i for i in ok[platform].get("items", [])
-                if matches_tokens(i, tokens)]
+        return select_items(ok[platform].get("items", []), query)
 
     zomato_by_id = {i["id"]: i for i in items_of("Zomato")}
     comparisons = []
@@ -268,9 +289,7 @@ async def recommend_food_within_budget(
 
     recommendations = []
     for platform, response in ok.items():
-        for item in response.get("items", []):
-            if not matches_tokens(item, tokens):
-                continue
+        for item in select_items(response.get("items", []), query):
             price = float(item["price"])
             if price <= budget:
                 recommendations.append({
